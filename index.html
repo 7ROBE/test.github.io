@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>iOS PWA Haptics Test</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="manifest" href="manifest.json">
+  <style>
+    body { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; font-family: sans-serif; }
+    button { margin: 10px; padding: 15px 25px; font-size: 18px; border: none; border-radius: 12px; cursor: pointer; }
+    .vibrate { background: #007aff; color: white; }
+  </style>
+</head>
+<body>
+  <h2>PWA Vibration Test</h2>
+  <p>Install this page to Home Screen, then test.</p>
+
+  <button class="vibrate" onclick="vibrateOnce()">Vibrate 200ms</button>
+  <button class="vibrate" onclick="vibratePattern()">Vibrate Pattern</button>
+
+  <script>
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("sw.js");
+    }
+
+    function vibrateOnce() {
+      if (navigator.vibrate) {
+        navigator.vibrate(200);
+        alert("Tried to vibrate for 200ms!");
+      } else {
+        alert("Vibration API not supported.");
+      }
+    }
+
+    function vibratePattern() {
+      if (navigator.vibrate) {
+        navigator.vibrate([100, 50, 200]);
+        alert("Tried vibration pattern!");
+      } else {
+        alert("Vibration API not supported.");
+      }
+    }
+  </script>
+</body>
+</html>
